@@ -23,27 +23,21 @@ export default function HomePage() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-[#0B3D91] via-[#0B3D91] to-[#083070]">
-        {/* Animated background elements */}
+      <section className="relative min-h-[90vh] flex items-center justify-center bg-black">
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <Float duration={6} y={20} className="absolute top-20 left-10 opacity-10">
-            <div className="w-64 h-64 rounded-full bg-[#FF8C00]" />
-          </Float>
-          <Float duration={8} y={30} className="absolute bottom-20 right-10 opacity-10">
-            <div className="w-96 h-96 rounded-full bg-[#D4AF37]" />
-          </Float>
-          <Float duration={5} y={15} className="absolute top-40 right-1/4 opacity-5">
-            <div className="w-48 h-48 rounded-full bg-white" />
-          </Float>
+          <iframe
+            className="absolute top-1/2 left-1/2 w-[177.77vh] min-w-full h-[56.25vw] min-h-full -translate-x-1/2 -translate-y-1/2"
+            src="https://www.youtube.com/embed/VjWC3ZCdES0?autoplay=1&mute=1&loop=1&playlist=VjWC3ZCdES0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+            title="Nepal Travel Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ pointerEvents: "none" }}
+          />
         </div>
 
-        {/* Decorative pattern */}
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
