@@ -78,7 +78,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mx-auto w-fit"
             >
               <Link href="/packages">
                 <motion.button
@@ -93,8 +93,7 @@ export default function HomePage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-outline border-white text-white hover:bg-white hover:text-[#0B3D91] text-lg px-8 py-4"
-                >
+                  className="border-2 border-white text-white bg-transparent px-8 py-4 rounded-md font-semibold transition-all duration-200 hover:bg-white hover:text-[#0B3D91] text-lg">
                   {homepage.hero.secondaryCTA}
                 </motion.button>
               </Link>
@@ -106,7 +105,7 @@ export default function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.6 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute -bottom-16 left-1/2 transform -translate-x-1/2"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
