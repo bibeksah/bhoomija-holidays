@@ -21,16 +21,35 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setIsSubmitted(true);
-    setIsSubmitting(false);
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setIsSubmitted(true);
+      } else {
+        setSubmitError(data.message || "Failed to send your message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -410,6 +429,16 @@ export default function ContactPage() {
                     </div>
 
                     <div className="md:col-span-2">
+                      {submitError && (
+                        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                          <p className="text-red-700 text-sm">{submitError}</p>
+                          <p className="text-red-600 text-xs mt-2">
+                            You can also reach us directly at{" "}
+                            <a href="tel:+9779840149464" className="underline">+977 9840149464</a> or{" "}
+                            <a href="https://wa.me/+9779840149464" className="underline">WhatsApp</a>
+                          </p>
+                        </div>
+                      )}
                       <motion.button
                         type="submit"
                         disabled={isSubmitting}
