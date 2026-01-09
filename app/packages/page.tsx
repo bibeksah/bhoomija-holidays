@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import {
@@ -102,26 +103,25 @@ export default function PackagesPage() {
                   <HoverCard className="h-full">
                     <Link href={`/packages/${pkg.slug}`} className="block h-full">
                       <div className="card h-full flex flex-col lg:flex-row overflow-hidden">
-                        {/* Image/Visual Section */}
-                        <div className="relative lg:w-2/5 h-64 lg:h-auto bg-gradient-to-br from-[#0B3D91] to-[#083070]">
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="text-center">
-                              <span className="text-white/20 text-7xl font-bold font-[family-name:var(--font-playfair)]">
-                                {pkg.durationDays}
-                              </span>
-                              <p className="text-white/40 text-sm mt-1">DAYS</p>
-                            </div>
-                          </div>
-                          <div className="absolute top-4 left-4">
+                        {/* Image Section */}
+                        <div className="relative lg:w-2/5 h-64 lg:h-auto min-h-[200px]">
+                          <Image
+                            src={pkg.gallery[0]}
+                            alt={pkg.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 40vw"
+                          />
+                          <div className="absolute top-4 left-4 z-10">
                             <span className="px-3 py-1 bg-[#FF8C00] text-white text-xs font-medium rounded-full capitalize">
                               {pkg.category}
                             </span>
                           </div>
-                          <div className="absolute bottom-4 left-4 right-4">
-                            <span className="text-white/80 text-sm">{pkg.duration}</span>
+                          <div className="absolute bottom-4 left-4 right-4 z-10">
+                            <span className="text-white text-sm font-medium drop-shadow-lg">{pkg.duration}</span>
                           </div>
                           {pkg.featured && (
-                            <div className="absolute top-4 right-4">
+                            <div className="absolute top-4 right-4 z-10">
                               <span className="px-3 py-1 bg-[#D4AF37] text-white text-xs font-medium rounded-full">
                                 Featured
                               </span>

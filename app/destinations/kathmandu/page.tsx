@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   FadeUp,
@@ -161,13 +162,15 @@ export default function KathmanduPage() {
                   <HoverCard className="h-full">
                     <Link href={`/packages/${pkg.slug}`} className="block h-full">
                       <div className="card h-full">
-                        <div className="relative h-48 bg-gradient-to-br from-[#0B3D91] to-[#083070]">
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-white/20 text-6xl font-bold font-[family-name:var(--font-playfair)]">
-                              {pkg.durationDays}D
-                            </span>
-                          </div>
-                          <div className="absolute top-4 right-4">
+                        <div className="relative h-48">
+                          <Image
+                            src={pkg.gallery[0]}
+                            alt={pkg.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                          <div className="absolute top-4 right-4 z-10">
                             <span className="px-3 py-1 bg-[#FF8C00] text-white text-xs rounded-full capitalize">
                               {pkg.category}
                             </span>

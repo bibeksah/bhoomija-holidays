@@ -18,6 +18,7 @@ export default function Header() {
       ],
     },
     { name: "Packages", href: "/packages" },
+    { name: "Gallery", href: "/gallery" },
     { name: "About", href: "/about" },
     { name: "FAQ", href: "/faq" },
     { name: "Contact", href: "/contact" },

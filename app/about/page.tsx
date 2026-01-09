@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   FadeUp,
@@ -100,17 +101,15 @@ export default function AboutPage() {
 
             <SlideInRight>
               <div className="relative">
-                <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#0B3D91] to-[#083070] p-1">
-                  <div className="w-full h-full rounded-xl bg-gradient-to-br from-[#FF8C00]/20 to-[#D4AF37]/20 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <span className="text-8xl">🙏</span>
-                      <p className="text-white/80 text-lg mt-4 font-[family-name:var(--font-playfair)]">
-                        Namaste
-                      </p>
-                      <p className="text-white/60 text-sm">
-                        Welcome to Nepal
-                      </p>
-                    </div>
+                <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#FF8C00] to-[#D4AF37] p-1">
+                  <div className="w-full h-full rounded-xl overflow-hidden relative">
+                    <Image
+                      src="/Madhubani-Shreya-Kumari-08.jpg.webp"
+                      alt="Madhubani Art - Traditional Mithila Painting depicting scenes from Ramayana"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
                   </div>
                 </div>
                 <Float duration={4} y={15} className="absolute -bottom-6 -right-6 z-10">

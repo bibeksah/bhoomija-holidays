@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
         // Send notification to admin
         await resend.emails.send({
-          from: "Bhumija Holidays <contact@nexalaris.com>",
+          from: "Bhumija Holidays <bhoomija@nexalaris.com>",
           to: process.env.ADMIN_EMAIL || "info@bhumijaholidays.com",
           subject: `New Quote Request from ${data.name}`,
           html: `
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
 
         // Send auto-reply to user
         await resend.emails.send({
-          from: "Bhumija Holidays <onboarding@resend.dev>",
+          from: "Bhumija Holidays <bhoomija@nexalaris.com>",
           to: data.email,
           subject: "We've Received Your Enquiry - Bhumija Holidays",
           html: `

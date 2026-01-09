@@ -3,18 +3,37 @@ export const siteContent = {
   company: {
     name: "Bhumija Holidays",
     tagline: "Where Culture Meets Journey",
-    phone: "+977-1-4XXXXXX",
+    phone: "+977 9840149464",
+    whatsapp: "+977 9840149464",
     email: "info@bhumijaholidays.com",
+    offices: {
+      kathmandu: {
+        name: "Kathmandu Office",
+        street: "Balkhu",
+        city: "Kathmandu",
+        postal: "44600",
+        country: "Nepal",
+      },
+      janakpur: {
+        name: "Janakpur Office",
+        street: "Ramaanand Chowk",
+        city: "Janakpur",
+        postal: "45600",
+        country: "Nepal",
+      },
+    },
+    // Keep for backward compatibility
     address: {
-      street: "Thamel, Kathmandu",
+      street: "Balkhu, Kathmandu",
       city: "Kathmandu",
       country: "Nepal",
       postal: "44600",
     },
+    // Social media links - to be added when pages are created
     socialMedia: {
-      facebook: "https://facebook.com/bhumijaholidays",
-      instagram: "https://instagram.com/bhumijaholidays",
-      twitter: "https://twitter.com/bhumijaholidays",
+      facebook: "",
+      instagram: "",
+      twitter: "",
     },
   },
 
@@ -316,6 +335,7 @@ The Bhumija Holidays Team`,
     quickLinks: [
       { label: "About Us", href: "/about" },
       { label: "Our Packages", href: "/packages" },
+      { label: "Gallery", href: "/gallery" },
       { label: "Plan My Trip", href: "/plan-my-trip" },
       { label: "Contact", href: "/contact" },
     ],

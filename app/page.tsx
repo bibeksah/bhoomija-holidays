@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   FadeUp,
@@ -24,16 +25,17 @@ export default function HomePage() {
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center bg-black">
-        {/* YouTube Video Background */}
+        {/* Video Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <iframe
-            className="absolute top-1/2 left-1/2 w-[177.77vh] min-w-full h-[56.25vw] min-h-full -translate-x-1/2 -translate-y-1/2"
-            src="https://www.youtube.com/embed/VjWC3ZCdES0?autoplay=1&mute=1&loop=1&playlist=VjWC3ZCdES0&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
-            title="Nepal Travel Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{ pointerEvents: "none" }}
-          />
+          <video
+            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src="/202601091928.webm" type="video/webm" />
+          </video>
         </div>
 
         {/* Dark overlay for better text readability */}
@@ -182,19 +184,21 @@ export default function HomePage() {
                 <HoverCard className="h-full">
                   <Link href={`/packages/${pkg.slug}`} className="block h-full">
                     <div className="card h-full flex flex-col">
-                      <div className="relative h-64 bg-gradient-to-br from-[#0B3D91] to-[#083070]">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-white/20 text-6xl font-bold font-[family-name:var(--font-playfair)]">
-                            {pkg.durationDays}D
-                          </span>
-                        </div>
-                        <div className="absolute top-4 right-4">
+                      <div className="relative h-64">
+                        <Image
+                          src={pkg.gallery[0]}
+                          alt={pkg.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                        <div className="absolute top-4 right-4 z-10">
                           <span className="px-3 py-1 bg-[#FF8C00] text-white text-sm rounded-full">
                             {pkg.category}
                           </span>
                         </div>
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <span className="text-white/80 text-sm">{pkg.duration}</span>
+                        <div className="absolute bottom-4 left-4 right-4 z-10">
+                          <span className="text-white text-sm font-medium drop-shadow-lg">{pkg.duration}</span>
                         </div>
                       </div>
                       <div className="p-6 flex flex-col flex-grow">
@@ -247,18 +251,26 @@ export default function HomePage() {
             <SlideInLeft>
               <div className="relative">
                 <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#FF8C00] to-[#D4AF37] p-1">
-                  <div className="w-full h-full rounded-xl bg-gradient-to-br from-[#0B3D91] to-[#083070] flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <div className="text-6xl mb-4">🛕</div>
-                      <span className="text-white/60 text-lg">Janaki Mandir</span>
-                    </div>
+                  <div className="w-full h-full rounded-xl overflow-hidden relative">
+                    <Image
+                      src="/gallery/janaki-mandir.jpg"
+                      alt="Janaki Mandir - Janakpurdham"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
                   </div>
                 </div>
                 <Float duration={4} y={15} className="absolute -bottom-6 -right-6 z-10">
                   <div className="bg-white rounded-xl shadow-xl p-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-[#FF8C00]/10 flex items-center justify-center">
-                        <span className="text-2xl">🎨</span>
+                      <div className="w-12 h-12 rounded-full overflow-hidden relative">
+                        <Image
+                          src="/gallery/mithila-art-center.jpg"
+                          alt="Mithila Art"
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                       <div>
                         <p className="font-semibold text-[#2B2B2B]">Mithila Art</p>

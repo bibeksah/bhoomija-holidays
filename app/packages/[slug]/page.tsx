@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import { use, useState } from "react";
@@ -125,15 +126,17 @@ export default function PackageDetailPage({
                 </div>
               </div>
 
-              {/* Visual placeholder */}
+              {/* Hero Image */}
               <div className="relative">
-                <div className="aspect-[4/3] rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-white/30 text-8xl font-bold font-[family-name:var(--font-playfair)]">
-                      {pkg.durationDays}D
-                    </span>
-                    <p className="text-white/40 text-lg mt-2">{pkg.duration}</p>
-                  </div>
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+                  <Image
+                    src={pkg.gallery[0]}
+                    alt={pkg.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
                 </div>
               </div>
             </div>

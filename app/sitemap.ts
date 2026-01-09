@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { packages } from "@/data/packages";
+import { galleryItems } from "@/data/gallery";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://bhumijaholidays.com";
@@ -9,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/about",
     "/packages",
+    "/gallery",
     "/destinations",
     "/destinations/kathmandu",
     "/destinations/janakpurdham",
@@ -36,5 +38,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...staticRoutes, ...packageRoutes];
+  // Gallery pages
+  const galleryRoutes = galleryItems.map((item) => ({
+    url: `${baseUrl}/gallery/${item.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...packageRoutes, ...galleryRoutes];
 }
