@@ -1,0 +1,19 @@
+{
+  "name": "Bhumija Holidays",
+  "short_name": "Bhumija",
+  "description": "Premium Cultural Travel in Nepal - Discover the rich heritage of Kathmandu and Janakpurdham with authentic cultural experiences.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF7F0",
+  "theme_color": "#0B3D91",
+  "orientation": "portrait-primary",
+  "categories": ["travel", "tourism", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

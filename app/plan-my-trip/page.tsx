@@ -29,6 +29,7 @@ export default function PlanMyTripPage() {
   const { forms } = siteContent;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -86,6 +87,7 @@ export default function PlanMyTripPage() {
     }
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
       const response = await fetch("/api/quote", {
@@ -96,15 +98,16 @@ export default function PlanMyTripPage() {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setIsSubmitted(true);
       } else {
-        throw new Error("Failed to submit");
+        setSubmitError(data.error || "Failed to submit your request. Please try again.");
       }
     } catch (error) {
       console.error("Submission error:", error);
-      // For demo purposes, show success anyway
-      setIsSubmitted(true);
+      setSubmitError("Network error. Please check your connection and try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -429,6 +432,51 @@ export default function PlanMyTripPage() {
                       <p className="text-red-500 text-sm">{errors.terms}</p>
                     )}
                   </div>
+
+                  {/* Error Message */}
+                  {submitError && (
+                    <div className="md:col-span-2">
+                      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <div className="flex items-start gap-3">
+                          <svg
+                            className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          <div>
+                            <p className="text-red-700 font-medium">Submission Failed</p>
+                            <p className="text-red-600 text-sm mt-1">{submitError}</p>
+                            <p className="text-red-600 text-sm mt-2">
+                              You can also reach us directly at{" "}
+                              <a
+                                href={`mailto:${siteContent.company.email}`}
+                                className="underline hover:text-red-800"
+                              >
+                                {siteContent.company.email}
+                              </a>{" "}
+                              or{" "}
+                              <a
+                                href={`https://wa.me/${siteContent.company.whatsapp?.replace(/\s/g, '')}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline hover:text-red-800"
+                              >
+                                WhatsApp
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Submit Button */}
                   <div className="md:col-span-2">

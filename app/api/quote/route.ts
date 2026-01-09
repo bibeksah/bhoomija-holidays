@@ -172,8 +172,20 @@ export async function POST(request: NextRequest) {
         });
       } catch (emailError) {
         console.error("Error sending email:", emailError);
-        // Don't fail the request if email fails - still return success
+        return NextResponse.json(
+          {
+            error: "Failed to send email. Please try again or contact us directly.",
+            details: emailError instanceof Error ? emailError.message : "Unknown error"
+          },
+          { status: 500 }
+        );
       }
+    } else {
+      console.error("RESEND_API_KEY not configured");
+      return NextResponse.json(
+        { error: "Email service not configured. Please contact us directly." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json(

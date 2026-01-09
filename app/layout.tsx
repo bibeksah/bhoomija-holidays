@@ -5,6 +5,54 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
+// JSON-LD Structured Data for Local Business
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  name: "Bhumija Holidays",
+  description:
+    "Premium cultural travel agency specializing in authentic Nepal experiences, including Kathmandu heritage tours and Janakpurdham spiritual journeys.",
+  url: "https://bhumijaholidays.com",
+  logo: "https://bhumijaholidays.com/icon.svg",
+  image: "https://bhumijaholidays.com/opengraph-image",
+  telephone: "+977-9840149464",
+  email: "info@bhumijaholidays.com",
+  priceRange: "$$",
+  address: [
+    {
+      "@type": "PostalAddress",
+      streetAddress: "Balkhu",
+      addressLocality: "Kathmandu",
+      postalCode: "44600",
+      addressCountry: "NP",
+    },
+    {
+      "@type": "PostalAddress",
+      streetAddress: "Ramaanand Chowk",
+      addressLocality: "Janakpur",
+      postalCode: "45600",
+      addressCountry: "NP",
+    },
+  ],
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "27.7172",
+    longitude: "85.324",
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "09:00",
+    closes: "18:00",
+  },
+  sameAs: [],
+  areaServed: {
+    "@type": "Country",
+    name: "Nepal",
+  },
+  serviceType: ["Cultural Tours", "Heritage Tourism", "Spiritual Journeys", "Custom Travel Packages"],
+};
+
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
@@ -73,6 +121,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-icon",
+  },
+  other: {
+    "theme-color": "#0B3D91",
+  },
 };
 
 export default function RootLayout({
@@ -82,6 +138,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="antialiased">
         <Header />
         <main>{children}</main>
