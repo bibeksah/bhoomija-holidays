@@ -162,18 +162,18 @@ export default function GalleryPage() {
           </div>
 
           {/* Desktop Filters */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
             {/* Location Filters */}
-            <div className="flex flex-wrap gap-3 justify-center mb-4">
+            <div className="flex gap-2 flex-shrink-0">
               {locationFilters.map((filter) => (
                 <motion.button
                   key={filter.value}
                   onClick={() => setActiveLocation(filter.value)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-5 py-2 rounded-full font-medium transition-all ${
+                  className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
                     activeLocation === filter.value
-                      ? "bg-[#0B3D91] text-white shadow-lg"
+                      ? "bg-[#0B3D91] text-white shadow-md"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
@@ -182,15 +182,17 @@ export default function GalleryPage() {
               ))}
             </div>
 
-            {/* Tag Filters */}
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="w-px h-6 bg-gray-300 flex-shrink-0" />
+
+            {/* Tag Filters - Scrollable */}
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
               {tagFilters.map((filter) => (
                 <motion.button
                   key={filter.value}
                   onClick={() => setActiveTag(filter.value)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                  className={`px-3 py-1 rounded-full text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${
                     activeTag === filter.value
                       ? "bg-[#FF8C00] text-white"
                       : "bg-gray-50 text-gray-500 hover:bg-gray-100 border border-gray-200"
@@ -200,6 +202,21 @@ export default function GalleryPage() {
                 </motion.button>
               ))}
             </div>
+
+            {/* Clear Filters */}
+            {(activeLocation !== "all" || activeTag !== "all") && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                onClick={() => {
+                  setActiveLocation("all");
+                  setActiveTag("all");
+                }}
+                className="flex-shrink-0 px-3 py-1 text-sm text-gray-500 hover:text-gray-700 underline"
+              >
+                Clear
+              </motion.button>
+            )}
           </div>
         </div>
       </section>
