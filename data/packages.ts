@@ -188,8 +188,8 @@ export const packages: Package[] = [
       "Personal shopping",
     ],
     gallery: [
-      "/packages/janakpur-1.jpeg",
-      "/packages/janakpur-2.jpg",
+      "/packages/janakpur-1.jpg",
+      "/packages/janakpur-2.jpeg",
       "/packages/janakpur-3.jpg",
       "/packages/janakpur-4.jpg",
     ],
