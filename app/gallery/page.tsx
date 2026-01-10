@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FadeUp,
   StaggerContainer,
@@ -22,6 +22,7 @@ type LocationFilter = "all" | "kathmandu" | "janakpurdham";
 export default function GalleryPage() {
   const [activeLocation, setActiveLocation] = useState<LocationFilter>("all");
   const [activeTag, setActiveTag] = useState<string>("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const filteredItems = getFilteredGallery(activeLocation, activeTag);
   const allTags = getAllTags();
@@ -73,44 +74,132 @@ export default function GalleryPage() {
       </section>
 
       {/* Filters Section */}
-      <section className="py-8 bg-white border-b border-gray-100 sticky top-20 z-40">
+      <section className="py-4 md:py-6 bg-white border-b border-gray-100 sticky top-20 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Location Filters */}
-          <div className="flex flex-wrap gap-3 justify-center mb-4">
-            {locationFilters.map((filter) => (
-              <motion.button
-                key={filter.value}
-                onClick={() => setActiveLocation(filter.value)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-5 py-2 rounded-full font-medium transition-all ${
-                  activeLocation === filter.value
-                    ? "bg-[#0B3D91] text-white shadow-lg"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                }`}
+          {/* Mobile Filter Toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setFiltersOpen(!filtersOpen)}
+              className="w-full flex items-center justify-between px-4 py-2 bg-gray-50 rounded-lg"
+            >
+              <span className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                Filters
+                {(activeLocation !== "all" || activeTag !== "all") && (
+                  <span className="px-2 py-0.5 bg-[#0B3D91] text-white text-xs rounded-full">
+                    {(activeLocation !== "all" ? 1 : 0) + (activeTag !== "all" ? 1 : 0)}
+                  </span>
+                )}
+              </span>
+              <motion.svg
+                animate={{ rotate: filtersOpen ? 180 : 0 }}
+                className="w-5 h-5 text-gray-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                {filter.label}
-              </motion.button>
-            ))}
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </motion.svg>
+            </button>
+
+            <AnimatePresence>
+              {filtersOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden"
+                >
+                  <div className="pt-4 space-y-3">
+                    {/* Location Filters */}
+                    <div>
+                      <p className="text-xs text-gray-500 mb-2 font-medium">Location</p>
+                      <div className="flex flex-wrap gap-2">
+                        {locationFilters.map((filter) => (
+                          <motion.button
+                            key={filter.value}
+                            onClick={() => setActiveLocation(filter.value)}
+                            whileTap={{ scale: 0.95 }}
+                            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                              activeLocation === filter.value
+                                ? "bg-[#0B3D91] text-white"
+                                : "bg-gray-100 text-gray-600"
+                            }`}
+                          >
+                            {filter.label}
+                          </motion.button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tag Filters */}
+                    <div>
+                      <p className="text-xs text-gray-500 mb-2 font-medium">Type</p>
+                      <div className="flex flex-wrap gap-2">
+                        {tagFilters.map((filter) => (
+                          <motion.button
+                            key={filter.value}
+                            onClick={() => setActiveTag(filter.value)}
+                            whileTap={{ scale: 0.95 }}
+                            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                              activeTag === filter.value
+                                ? "bg-[#FF8C00] text-white"
+                                : "bg-gray-50 text-gray-500 border border-gray-200"
+                            }`}
+                          >
+                            {filter.label}
+                          </motion.button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Tag Filters */}
-          <div className="flex flex-wrap gap-2 justify-center">
-            {tagFilters.map((filter) => (
-              <motion.button
-                key={filter.value}
-                onClick={() => setActiveTag(filter.value)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                  activeTag === filter.value
-                    ? "bg-[#FF8C00] text-white"
-                    : "bg-gray-50 text-gray-500 hover:bg-gray-100 border border-gray-200"
-                }`}
-              >
-                {filter.label}
-              </motion.button>
-            ))}
+          {/* Desktop Filters */}
+          <div className="hidden md:block">
+            {/* Location Filters */}
+            <div className="flex flex-wrap gap-3 justify-center mb-4">
+              {locationFilters.map((filter) => (
+                <motion.button
+                  key={filter.value}
+                  onClick={() => setActiveLocation(filter.value)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-5 py-2 rounded-full font-medium transition-all ${
+                    activeLocation === filter.value
+                      ? "bg-[#0B3D91] text-white shadow-lg"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {filter.label}
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Tag Filters */}
+            <div className="flex flex-wrap gap-2 justify-center">
+              {tagFilters.map((filter) => (
+                <motion.button
+                  key={filter.value}
+                  onClick={() => setActiveTag(filter.value)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                    activeTag === filter.value
+                      ? "bg-[#FF8C00] text-white"
+                      : "bg-gray-50 text-gray-500 hover:bg-gray-100 border border-gray-200"
+                  }`}
+                >
+                  {filter.label}
+                </motion.button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
