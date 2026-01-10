@@ -210,7 +210,7 @@ export default function KathmanduPage() {
               Let us craft your perfect journey through the ancient streets and
               sacred sites of Kathmandu Valley.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/plan-my-trip">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -224,7 +224,7 @@ export default function KathmanduPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-outline border-white text-white hover:bg-white hover:text-[#0B3D91] text-lg px-8"
+                  className="btn-outline-light text-lg px-8"
                 >
                   View All Packages
                 </motion.button>

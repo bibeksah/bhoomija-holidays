@@ -116,20 +116,20 @@ export default function FAQPage() {
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp>
-            <div className="card p-8 md:p-12 text-center bg-gradient-to-br from-[#0B3D91] to-[#083070] text-white">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-[family-name:var(--font-playfair)]">
+            <div className="rounded-xl shadow-lg p-8 md:p-12 text-center bg-gradient-to-br from-[#0B3D91] to-[#083070]">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-[family-name:var(--font-playfair)] text-white">
                 Still Have Questions?
               </h2>
               <p className="text-xl text-white/80 mb-8 max-w-xl mx-auto">
                 Our travel experts are here to help. Reach out anytime and we&apos;ll
                 get back to you within 24 hours.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Link href="/contact">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="btn-primary"
+                    className="btn-primary text-lg px-8"
                   >
                     Contact Us
                   </motion.button>
@@ -138,7 +138,7 @@ export default function FAQPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-md font-semibold hover:bg-white/20 transition-all border border-white/30"
+                    className="btn-outline-light text-lg px-8"
                   >
                     Plan My Trip
                   </motion.button>

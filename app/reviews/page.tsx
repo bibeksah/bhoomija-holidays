@@ -173,7 +173,7 @@ export default function ReviewsPage() {
               Join hundreds of travelers who&apos;ve discovered Nepal&apos;s magic with us.
               Your adventure awaits.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/plan-my-trip">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -187,7 +187,7 @@ export default function ReviewsPage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-outline border-white text-white hover:bg-white hover:text-[#0B3D91] text-lg px-8"
+                  className="btn-outline-light text-lg px-8"
                 >
                   Browse Packages
                 </motion.button>
