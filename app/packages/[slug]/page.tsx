@@ -536,12 +536,12 @@ export default function PackageDetailPage({
               Let us help you plan the perfect Nepal adventure. Our travel experts
               are ready to customize this journey to your preferences.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/plan-my-trip">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-primary text-lg px-8"
+                  className="btn-primary text-lg px-8 py-4"
                 >
                   Book This Trip
                 </motion.button>
@@ -550,7 +550,7 @@ export default function PackageDetailPage({
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-outline border-white text-white hover:bg-white hover:text-[#0B3D91] text-lg px-8"
+                  className="border-2 border-white text-white bg-transparent px-8 py-4 rounded-md font-semibold transition-all duration-200 hover:bg-white hover:text-[#0B3D91] text-lg"
                 >
                   Ask a Question
                 </motion.button>
