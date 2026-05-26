@@ -1,11 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDestinationsOpen, setIsDestinationsOpen] = useState(false);
+
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setIsDestinationsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsDestinationsOpen(false);
+    }, 1000); // 1 second delay
+  };
+
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setIsDestinationsOpen((prev) => !prev);
+  };
+
+  const handleLinkClick = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setIsDestinationsOpen(false);
+  };
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -47,10 +92,13 @@ export default function Header() {
                 <div
                   key={item.name}
                   className="relative"
-                  onMouseEnter={() => setIsDestinationsOpen(true)}
-                  onMouseLeave={() => setIsDestinationsOpen(false)}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <button className="text-[#2B2B2B] hover:text-[#0B3D91] font-medium transition-colors flex items-center gap-1">
+                  <button
+                    onClick={handleButtonClick}
+                    className="text-[#2B2B2B] hover:text-[#0B3D91] font-medium transition-colors flex items-center gap-1"
+                  >
                     {item.name}
                     <svg
                       className={`w-4 h-4 transition-transform ${
@@ -74,6 +122,7 @@ export default function Header() {
                         <Link
                           key={child.name}
                           href={child.href}
+                          onClick={handleLinkClick}
                           className="block px-4 py-2 text-[#2B2B2B] hover:bg-[#FAF7F0] hover:text-[#0B3D91] transition-colors"
                         >
                           {child.name}
@@ -148,7 +197,9 @@ export default function Header() {
                 item.children ? (
                   <div key={item.name}>
                     <button
-                      onClick={() => setIsDestinationsOpen(!isDestinationsOpen)}
+                      onClick={() => {
+                        setIsDestinationsOpen(!isDestinationsOpen);
+                      }}
                       className="w-full text-left px-4 py-2 text-[#2B2B2B] hover:bg-[#FAF7F0] rounded-lg font-medium flex items-center justify-between"
                     >
                       {item.name}

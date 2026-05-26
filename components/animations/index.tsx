@@ -15,14 +15,11 @@ export function FadeUp({
   duration?: number;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       transition={{ duration, delay, ease: "easeOut" }}
       className={className}
     >
@@ -43,14 +40,11 @@ export function FadeIn({
   duration?: number;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
       transition={{ duration, delay, ease: "easeOut" }}
       className={className}
     >
@@ -69,14 +63,11 @@ export function ScaleUp({
   delay?: number;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, scale: 0.95 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
     >
@@ -95,14 +86,11 @@ export function SlideInLeft({
   delay?: number;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, x: -60 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.6, delay, ease: "easeOut" }}
       className={className}
     >
@@ -121,14 +109,11 @@ export function SlideInRight({
   delay?: number;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, x: 60 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.6, delay, ease: "easeOut" }}
       className={className}
     >
@@ -147,14 +132,11 @@ export function StaggerContainer({
   className?: string;
   staggerDelay?: number;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <motion.div
-      ref={ref}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      whileInView="visible"
+      viewport={{ once: true }}
       variants={{
         hidden: {},
         visible: {
@@ -241,14 +223,12 @@ export function TextReveal({
   children: string;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
-    <span ref={ref} className={`overflow-hidden inline-block ${className}`}>
+    <span className={`overflow-hidden inline-block ${className}`}>
       <motion.span
         initial={{ y: "100%" }}
-        animate={isInView ? { y: 0 } : { y: "100%" }}
+        whileInView={{ y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
         className="inline-block"
       >

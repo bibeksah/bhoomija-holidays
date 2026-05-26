@@ -44,7 +44,7 @@ export function middleware(request: NextRequest) {
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://images.unsplash.com https://*.unsplash.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://api.resend.com",
+      "connect-src 'self'",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",

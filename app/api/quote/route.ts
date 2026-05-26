@@ -1,18 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
-
-// Initialize Resend with API key (lazy initialization)
-let resendInstance: Resend | null = null;
-const getResend = () => {
-  if (!resendInstance) {
-    resendInstance = new Resend(process.env.RESEND_API_KEY);
-  }
-  return resendInstance;
-};
+import { sendEmail } from "@/lib/mail";
 
 // Email recipient from env with fallback
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "bibeksah36@gmail.com";
-const SENDER_EMAIL = process.env.EMAIL_USER || "bhoomija@nexalaris.com";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "info@bhumijaholidays.com";
+const ADMIN_EMAIL_2 = process.env.ADMIN_EMAIL || "sat4931@gmail.com";
+const SENDER_EMAIL = process.env.SMTP_USER || process.env.EMAIL_USER || "info@bhumijaholidays.com";
 
 export async function POST(request: NextRequest) {
   try {
@@ -198,21 +190,19 @@ info@bhumijaholidays.com
     `;
 
     try {
-      const resend = getResend();
-
       // Send notification to admin
-      const adminEmailResult = await resend.emails.send({
+      const adminEmailResult = await sendEmail({
         from: `Bhumija Holidays <${SENDER_EMAIL}>`,
-        to: [ADMIN_EMAIL],
+        to: [ADMIN_EMAIL, ADMIN_EMAIL_2],
         subject: `New Quote Request from ${data.name}`,
         html: adminHtmlContent,
         text: adminTextContent,
       });
 
-      console.log("Admin email sent:", adminEmailResult);
+      console.log("Admin email sent via SMTP:", adminEmailResult.messageId);
 
       // Send auto-reply to user
-      const userEmailResult = await resend.emails.send({
+      const userEmailResult = await sendEmail({
         from: `Bhumija Holidays <${SENDER_EMAIL}>`,
         to: [data.email],
         subject: "We've Received Your Enquiry - Bhumija Holidays",
@@ -220,7 +210,7 @@ info@bhumijaholidays.com
         text: userTextContent,
       });
 
-      console.log("User email sent:", userEmailResult);
+      console.log("User email sent via SMTP:", userEmailResult.messageId);
 
       return NextResponse.json({
         success: true,

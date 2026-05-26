@@ -22,7 +22,7 @@ export default function HomePage() {
   const featuredPackages = getFeaturedPackages();
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center bg-black">
         {/* Video Background */}
