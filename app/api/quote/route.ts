@@ -3,7 +3,7 @@ import { sendEmail } from "@/lib/mail";
 
 // Email recipient from env with fallback
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "info@bhumijaholidays.com";
-const ADMIN_EMAIL_2 = process.env.ADMIN_EMAIL || "sat4931@gmail.com";
+const ADMIN_EMAIL_2 = process.env.ADMIN_EMAIL_2 || "sat4931@gmail.com";
 const SENDER_EMAIL = process.env.SMTP_USER || process.env.EMAIL_USER || "info@bhumijaholidays.com";
 
 export async function POST(request: NextRequest) {
