@@ -42,7 +42,7 @@ export const siteContent = {
     hero: {
       headline: "Discover Nepal's Soul",
       subheadline:
-        "Experience the timeless beauty of Kathmandu's heritage and the sacred traditions of Janakpurdham with Nepal's premier cultural travel experts.",
+        "Experience the sacred traditions of Janakpurdham with Nepal's cultural travel experts. Kathmandu heritage journeys are coming soon.",
       primaryCTA: "Explore Packages",
       secondaryCTA: "Plan My Trip",
     },
@@ -331,7 +331,7 @@ The Bhumija Holidays Team`,
   // Footer Content
   footer: {
     description:
-      "Premium cultural travel experiences in Nepal. Discover the heritage of Kathmandu and the sacred traditions of Janakpurdham.",
+      "Premium cultural travel experiences in Nepal. We currently operate Janakpurdham journeys, with Kathmandu experiences coming soon.",
     quickLinks: [
       { label: "About Us", href: "/about" },
       { label: "Our Packages", href: "/packages" },
@@ -340,7 +340,7 @@ The Bhumija Holidays Team`,
       { label: "Contact", href: "/contact" },
     ],
     destinations: [
-      { label: "Kathmandu", href: "/destinations/kathmandu" },
+      { label: "Kathmandu (Coming Soon)", href: "/destinations/kathmandu" },
       { label: "Janakpurdham", href: "/destinations/janakpurdham" },
     ],
     legal: [

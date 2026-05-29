@@ -12,7 +12,7 @@ import {
   HoverCard,
 } from "@/components/animations";
 import { siteContent } from "@/data/content";
-import { getPackagesByDestination } from "@/data/packages";
+import { getPackagesByDestination, isPackageComingSoon } from "@/data/packages";
 
 export default function KathmanduPage() {
   const { kathmandu } = siteContent.destinations;
@@ -54,12 +54,21 @@ export default function KathmanduPage() {
             <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-[#D4AF37] text-sm font-medium tracking-wide mb-4">
               {kathmandu.tagline}
             </span>
+            <span className="inline-block ml-3 px-4 py-2 bg-white text-[#0B3D91] rounded-full text-sm font-semibold tracking-wide mb-4">
+              Coming Soon
+            </span>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-[family-name:var(--font-playfair)]">
               {kathmandu.name}
             </h1>
             <p className="text-xl text-white/80 leading-relaxed">
               {kathmandu.heroDescription}
             </p>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 mt-8">
+              <p className="text-white font-medium">
+                Kathmandu journeys are coming soon. We currently operate
+                Janakpurdham experiences only.
+              </p>
+            </div>
           </motion.div>
         </div>
 
@@ -152,16 +161,19 @@ export default function KathmanduPage() {
                 Kathmandu Packages
               </h2>
               <p className="text-lg text-gray-600">
-                Curated journeys to explore this remarkable destination
+                Coming soon as we expand beyond Janakpurdham
               </p>
             </FadeUp>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {packages.map((pkg, index) => (
-                <FadeUp key={pkg.id} delay={index * 0.1}>
-                  <HoverCard className="h-full">
-                    <Link href={`/packages/${pkg.slug}`} className="block h-full">
-                      <div className="card h-full">
+              {packages.map((pkg, index) => {
+                const isComingSoon = isPackageComingSoon(pkg);
+
+                return (
+                  <FadeUp key={pkg.id} delay={index * 0.1}>
+                    <HoverCard className="h-full">
+                      <Link href={`/packages/${pkg.slug}`} className="block h-full">
+                        <div className="card h-full">
                         <div className="relative h-48">
                           <Image
                             src={pkg.gallery[0]}
@@ -175,6 +187,13 @@ export default function KathmanduPage() {
                               {pkg.category}
                             </span>
                           </div>
+                          {isComingSoon && (
+                            <div className="absolute top-4 left-4 z-10">
+                              <span className="px-3 py-1 bg-white text-[#0B3D91] text-xs font-semibold rounded-full shadow-sm">
+                                Coming Soon
+                              </span>
+                            </div>
+                          )}
                         </div>
                         <div className="p-6">
                           <h3 className="text-xl font-semibold text-[#2B2B2B] mb-2 font-[family-name:var(--font-playfair)]">
@@ -184,7 +203,9 @@ export default function KathmanduPage() {
                           <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                             <span className="text-sm text-gray-500">{pkg.duration}</span>
                             <span className="text-lg font-bold text-[#0B3D91]">
-                              {pkg.currency} {pkg.startingPrice.toLocaleString()}
+                              {isComingSoon
+                                ? "Coming soon"
+                                : `${pkg.currency} ${pkg.startingPrice.toLocaleString()}`}
                             </span>
                           </div>
                         </div>
@@ -192,7 +213,8 @@ export default function KathmanduPage() {
                     </Link>
                   </HoverCard>
                 </FadeUp>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -204,20 +226,20 @@ export default function KathmanduPage() {
           <FadeUp>
             <div className="w-16 h-1 bg-gradient-to-r from-[#D4AF37] to-[#FF8C00] mx-auto mb-8" />
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-playfair)]">
-              Ready to Explore Kathmandu?
+              Kathmandu Trips Are Coming Soon
             </h2>
             <p className="text-xl text-white/80 mb-8">
-              Let us craft your perfect journey through the ancient streets and
-              sacred sites of Kathmandu Valley.
+              We are preparing Kathmandu experiences for a future launch. For
+              now, our operating destination is Janakpurdham.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/plan-my-trip">
+              <Link href="/destinations/janakpurdham">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="btn-primary text-lg px-8"
                 >
-                  Plan My Trip
+                  Explore Janakpurdham
                 </motion.button>
               </Link>
               <Link href="/packages">

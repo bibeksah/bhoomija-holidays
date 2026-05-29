@@ -22,7 +22,12 @@ export interface Package {
   destination: "kathmandu" | "janakpurdham" | "multi-city";
   category: "cultural" | "spiritual" | "heritage" | "adventure";
   featured: boolean;
+  availability: "available" | "coming-soon";
+  availabilityNote?: string;
 }
+
+const KATHMANDU_COMING_SOON_NOTE =
+  "Kathmandu journeys are coming soon. We currently operate Janakpurdham experiences only.";
 
 export const packages: Package[] = [
   {
@@ -114,6 +119,8 @@ export const packages: Package[] = [
     destination: "kathmandu",
     category: "heritage",
     featured: true,
+    availability: "coming-soon",
+    availabilityNote: KATHMANDU_COMING_SOON_NOTE,
   },
   {
     id: "2",
@@ -196,6 +203,7 @@ export const packages: Package[] = [
     destination: "janakpurdham",
     category: "spiritual",
     featured: true,
+    availability: "available",
   },
   {
     id: "3",
@@ -317,6 +325,8 @@ export const packages: Package[] = [
     destination: "multi-city",
     category: "cultural",
     featured: true,
+    availability: "coming-soon",
+    availabilityNote: KATHMANDU_COMING_SOON_NOTE,
   },
   {
     id: "4",
@@ -387,7 +397,8 @@ export const packages: Package[] = [
     ],
     destination: "janakpurdham",
     category: "cultural",
-    featured: false,
+    featured: true,
+    availability: "available",
   },
 ];
 
@@ -396,7 +407,19 @@ export function getPackageBySlug(slug: string): Package | undefined {
 }
 
 export function getFeaturedPackages(): Package[] {
-  return packages.filter((pkg) => pkg.featured);
+  return packages
+    .filter((pkg) => pkg.featured)
+    .sort((a, b) => {
+      const destinationPriority = (pkg: Package) =>
+        pkg.destination === "janakpurdham" ? 0 : 1;
+
+      return destinationPriority(a) - destinationPriority(b);
+    })
+    .slice(0, 3);
+}
+
+export function isPackageComingSoon(pkg: Package): boolean {
+  return pkg.availability === "coming-soon";
 }
 
 export function getPackagesByDestination(

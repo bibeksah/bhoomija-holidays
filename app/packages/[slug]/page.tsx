@@ -14,7 +14,7 @@ import {
   StaggerItem,
   HoverCard,
 } from "@/components/animations";
-import { getPackageBySlug, packages } from "@/data/packages";
+import { getPackageBySlug, isPackageComingSoon } from "@/data/packages";
 
 export default function PackageDetailPage({
   params,
@@ -28,6 +28,8 @@ export default function PackageDetailPage({
   if (!pkg) {
     notFound();
   }
+
+  const isComingSoon = isPackageComingSoon(pkg);
 
   return (
     <div>
@@ -70,11 +72,24 @@ export default function PackageDetailPage({
                   <span className="px-3 py-1 bg-white/10 text-white text-sm rounded-full capitalize">
                     {pkg.destination.replace("-", " ")}
                   </span>
+                  {isComingSoon && (
+                    <span className="px-3 py-1 bg-white text-[#0B3D91] text-sm font-semibold rounded-full">
+                      Coming Soon
+                    </span>
+                  )}
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-[family-name:var(--font-playfair)]">
                   {pkg.title}
                 </h1>
                 <p className="text-xl text-white/80 mb-8">{pkg.summary}</p>
+
+                {isComingSoon && (
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 mb-8">
+                    <p className="text-white font-medium">
+                      {pkg.availabilityNote}
+                    </p>
+                  </div>
+                )}
 
                 <div className="flex flex-wrap gap-6 mb-8">
                   <div className="flex items-center gap-2 text-white">
@@ -118,11 +133,17 @@ export default function PackageDetailPage({
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 inline-block">
-                  <span className="text-white/60 text-sm">Starting from</span>
+                  <span className="text-white/60 text-sm">
+                    {isComingSoon ? "Availability" : "Starting from"}
+                  </span>
                   <p className="text-3xl font-bold text-white">
-                    {pkg.currency} {pkg.startingPrice.toLocaleString()}
+                    {isComingSoon
+                      ? "Coming soon"
+                      : `${pkg.currency} ${pkg.startingPrice.toLocaleString()}`}
                   </p>
-                  <span className="text-white/60 text-sm">per person</span>
+                  <span className="text-white/60 text-sm">
+                    {isComingSoon ? "Janakpurdham trips available now" : "per person"}
+                  </span>
                 </div>
               </div>
 
@@ -152,18 +173,32 @@ export default function PackageDetailPage({
               <span className="font-semibold text-[#2B2B2B]">{pkg.title}</span>
               <span className="text-gray-400">|</span>
               <span className="text-[#0B3D91] font-bold">
-                {pkg.currency} {pkg.startingPrice.toLocaleString()}
+                {isComingSoon
+                  ? "Coming soon"
+                  : `${pkg.currency} ${pkg.startingPrice.toLocaleString()}`}
               </span>
             </div>
-            <Link href="/plan-my-trip">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary"
-              >
-                Book This Trip
-              </motion.button>
-            </Link>
+            {isComingSoon ? (
+              <Link href="/destinations/janakpurdham">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-primary"
+                >
+                  View Janakpurdham Trips
+                </motion.button>
+              </Link>
+            ) : (
+              <Link href="/plan-my-trip">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-primary"
+                >
+                  Book This Trip
+                </motion.button>
+              </Link>
+            )}
           </div>
         </div>
       </section>
@@ -298,23 +333,39 @@ export default function PackageDetailPage({
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Starting Price</p>
+                      <p className="text-sm text-gray-500">
+                        {isComingSoon ? "Availability" : "Starting Price"}
+                      </p>
                       <p className="font-bold text-[#0B3D91] text-xl">
-                        {pkg.currency} {pkg.startingPrice.toLocaleString()}
+                        {isComingSoon
+                          ? "Coming soon"
+                          : `${pkg.currency} ${pkg.startingPrice.toLocaleString()}`}
                       </p>
                     </div>
                   </li>
                 </ul>
 
-                <Link href="/plan-my-trip" className="block mt-6">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="btn-primary w-full"
-                  >
-                    Book This Trip
-                  </motion.button>
-                </Link>
+                {isComingSoon ? (
+                  <Link href="/destinations/janakpurdham" className="block mt-6">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="btn-primary w-full"
+                    >
+                      View Available Trips
+                    </motion.button>
+                  </Link>
+                ) : (
+                  <Link href="/plan-my-trip" className="block mt-6">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="btn-primary w-full"
+                    >
+                      Book This Trip
+                    </motion.button>
+                  </Link>
+                )}
               </div>
             </SlideInRight>
           </div>
@@ -530,20 +581,23 @@ export default function PackageDetailPage({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-playfair)]">
-              Ready to Experience {pkg.title}?
+              {isComingSoon
+                ? `${pkg.title} Is Coming Soon`
+                : `Ready to Experience ${pkg.title}?`}
             </h2>
             <p className="text-xl text-white/80 mb-8">
-              Let us help you plan the perfect Nepal adventure. Our travel experts
-              are ready to customize this journey to your preferences.
+              {isComingSoon
+                ? "Kathmandu journeys are not open for booking yet. Explore our currently available Janakpurdham experiences while we prepare this package."
+                : "Let us help you plan the perfect Nepal adventure. Our travel experts are ready to customize this journey to your preferences."}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/plan-my-trip">
+              <Link href={isComingSoon ? "/destinations/janakpurdham" : "/plan-my-trip"}>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="btn-primary text-lg px-8 py-4"
                 >
-                  Book This Trip
+                  {isComingSoon ? "View Janakpurdham Trips" : "Book This Trip"}
                 </motion.button>
               </Link>
               <Link href="/contact">
@@ -562,4 +616,3 @@ export default function PackageDetailPage({
     </div>
   );
 }
-

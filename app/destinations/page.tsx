@@ -18,12 +18,14 @@ export default function DestinationsPage() {
       key: "kathmandu",
       ...destinations.kathmandu,
       href: "/destinations/kathmandu",
+      comingSoon: true,
       icon: "🏛️",
     },
     {
       key: "janakpurdham",
       ...destinations.janakpurdham,
       href: "/destinations/janakpurdham",
+      comingSoon: false,
       icon: "🛕",
     },
   ];
@@ -52,8 +54,8 @@ export default function DestinationsPage() {
               Our Destinations
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              From the ancient streets of Kathmandu to the sacred temples of
-              Janakpurdham, discover Nepal&apos;s most captivating cultural destinations.
+              We currently operate Janakpurdham journeys, with Kathmandu
+              experiences coming soon.
             </p>
           </motion.div>
         </div>
@@ -73,6 +75,13 @@ export default function DestinationsPage() {
                         <div className="absolute inset-0 flex items-center justify-center">
                           <span className="text-8xl">{dest.icon}</span>
                         </div>
+                        {dest.comingSoon && (
+                          <div className="absolute top-4 right-4 z-10">
+                            <span className="px-3 py-1 bg-white text-[#0B3D91] text-sm font-semibold rounded-full shadow-sm">
+                              Coming Soon
+                            </span>
+                          </div>
+                        )}
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
                           <span className="text-white/80 text-sm font-medium tracking-wide">
                             {dest.tagline}
@@ -82,6 +91,11 @@ export default function DestinationsPage() {
 
                       {/* Content Section */}
                       <div className="p-8">
+                        {dest.comingSoon && (
+                          <span className="inline-block px-3 py-1 bg-[#0B3D91]/10 text-[#0B3D91] text-xs font-semibold rounded-full mb-3">
+                            Not open for booking yet
+                          </span>
+                        )}
                         <h2 className="text-3xl font-bold text-[#2B2B2B] mb-4 font-[family-name:var(--font-playfair)]">
                           {dest.name}
                         </h2>
@@ -114,7 +128,7 @@ export default function DestinationsPage() {
                         </div>
 
                         <span className="inline-flex items-center gap-2 text-[#0B3D91] font-medium">
-                          Explore {dest.name}
+                          {dest.comingSoon ? "Preview Destination" : `Explore ${dest.name}`}
                           <svg
                             className="w-5 h-5"
                             fill="none"

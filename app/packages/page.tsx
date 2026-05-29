@@ -10,7 +10,7 @@ import {
   StaggerItem,
   HoverCard,
 } from "@/components/animations";
-import { packages, Package } from "@/data/packages";
+import { isPackageComingSoon, packages, Package } from "@/data/packages";
 import type { Metadata } from "next";
 
 type FilterType = "all" | Package["destination"] | Package["category"];
@@ -161,11 +161,14 @@ export default function PackagesPage() {
             </div>
           ) : (
             <StaggerContainer className="grid md:grid-cols-2 gap-8">
-              {filteredPackages.map((pkg, index) => (
-                <StaggerItem key={pkg.id}>
-                  <HoverCard className="h-full">
-                    <Link href={`/packages/${pkg.slug}`} className="block h-full">
-                      <div className="card h-full flex flex-col lg:flex-row overflow-hidden">
+              {filteredPackages.map((pkg, index) => {
+                const isComingSoon = isPackageComingSoon(pkg);
+
+                return (
+                  <StaggerItem key={pkg.id}>
+                    <HoverCard className="h-full">
+                      <Link href={`/packages/${pkg.slug}`} className="block h-full">
+                        <div className="card h-full flex flex-col lg:flex-row overflow-hidden">
                         {/* Image Section */}
                         <div className="relative lg:w-2/5 h-64 lg:h-auto min-h-[200px]">
                           <Image
@@ -180,16 +183,23 @@ export default function PackagesPage() {
                               {pkg.category}
                             </span>
                           </div>
+                          {(isComingSoon || pkg.featured) && (
+                            <div className="absolute top-4 right-4 z-10 flex flex-col items-end gap-2">
+                              {isComingSoon && (
+                                <span className="px-3 py-1 bg-white text-[#0B3D91] text-xs font-semibold rounded-full shadow-sm">
+                                  Coming Soon
+                                </span>
+                              )}
+                              {pkg.featured && (
+                                <span className="px-3 py-1 bg-[#D4AF37] text-white text-xs font-medium rounded-full">
+                                  Featured
+                                </span>
+                              )}
+                            </div>
+                          )}
                           <div className="absolute bottom-4 left-4 right-4 z-10">
                             <span className="text-white text-sm font-medium drop-shadow-lg">{pkg.duration}</span>
                           </div>
-                          {pkg.featured && (
-                            <div className="absolute top-4 right-4 z-10">
-                              <span className="px-3 py-1 bg-[#D4AF37] text-white text-xs font-medium rounded-full">
-                                Featured
-                              </span>
-                            </div>
-                          )}
                         </div>
 
                         {/* Content Section */}
@@ -229,9 +239,13 @@ export default function PackagesPage() {
                           {/* Price and CTA */}
                           <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                             <div>
-                              <span className="text-sm text-gray-500">Starting from</span>
+                              <span className="text-sm text-gray-500">
+                                {isComingSoon ? "Availability" : "Starting from"}
+                              </span>
                               <p className="text-2xl font-bold text-[#0B3D91]">
-                                {pkg.currency} {pkg.startingPrice.toLocaleString()}
+                                {isComingSoon
+                                  ? "Coming soon"
+                                  : `${pkg.currency} ${pkg.startingPrice.toLocaleString()}`}
                               </p>
                             </div>
                             <span className="inline-flex items-center gap-2 text-[#0B3D91] font-medium">
@@ -256,7 +270,8 @@ export default function PackagesPage() {
                     </Link>
                   </HoverCard>
                 </StaggerItem>
-              ))}
+                );
+              })}
             </StaggerContainer>
           )}
         </div>

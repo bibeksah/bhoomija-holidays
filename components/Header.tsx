@@ -58,7 +58,7 @@ export default function Header() {
       name: "Destinations",
       href: "/destinations",
       children: [
-        { name: "Kathmandu", href: "/destinations/kathmandu" },
+        { name: "Kathmandu", href: "/destinations/kathmandu", comingSoon: true },
         { name: "Janakpurdham", href: "/destinations/janakpurdham" },
       ],
     },
@@ -123,9 +123,14 @@ export default function Header() {
                           key={child.name}
                           href={child.href}
                           onClick={handleLinkClick}
-                          className="block px-4 py-2 text-[#2B2B2B] hover:bg-[#FAF7F0] hover:text-[#0B3D91] transition-colors"
+                          className="flex items-center justify-between gap-3 px-4 py-2 text-[#2B2B2B] hover:bg-[#FAF7F0] hover:text-[#0B3D91] transition-colors"
                         >
-                          {child.name}
+                          <span>{child.name}</span>
+                          {child.comingSoon && (
+                            <span className="text-[10px] uppercase tracking-wide text-[#0B3D91] bg-[#0B3D91]/10 px-2 py-0.5 rounded-full">
+                              Soon
+                            </span>
+                          )}
                         </Link>
                       ))}
                     </div>
@@ -225,10 +230,15 @@ export default function Header() {
                           <Link
                             key={child.name}
                             href={child.href}
-                            className="block px-4 py-2 text-[#2B2B2B] hover:bg-[#FAF7F0] rounded-lg"
+                            className="flex items-center justify-between gap-3 px-4 py-2 text-[#2B2B2B] hover:bg-[#FAF7F0] rounded-lg"
                             onClick={() => setIsMenuOpen(false)}
                           >
-                            {child.name}
+                            <span>{child.name}</span>
+                            {child.comingSoon && (
+                              <span className="text-[10px] uppercase tracking-wide text-[#0B3D91] bg-[#0B3D91]/10 px-2 py-0.5 rounded-full">
+                                Soon
+                              </span>
+                            )}
                           </Link>
                         ))}
                       </div>

@@ -65,6 +65,9 @@ export default function PlanMyTripPage() {
 
     if (!formData.destination) {
       newErrors.destination = forms.quote.fields.destination.error;
+    } else if (["kathmandu", "both", "undecided"].includes(formData.destination)) {
+      newErrors.destination =
+        "Kathmandu trips are coming soon. Please select Janakpurdham for now.";
     }
 
     if (!formData.consent) {
@@ -304,11 +307,21 @@ export default function PlanMyTripPage() {
                       className={`form-input ${errors.destination ? "border-red-500" : ""}`}
                     >
                       <option value="">{forms.quote.fields.destination.placeholder}</option>
-                      <option value="kathmandu">Kathmandu</option>
                       <option value="janakpurdham">Janakpurdham</option>
-                      <option value="both">Both Destinations</option>
-                      <option value="undecided">Not Sure Yet</option>
+                      <option value="kathmandu" disabled>
+                        Kathmandu (Coming Soon)
+                      </option>
+                      <option value="both" disabled>
+                        Both Destinations (Coming Soon)
+                      </option>
+                      <option value="undecided" disabled>
+                        Not Sure Yet (Contact us)
+                      </option>
                     </select>
+                    <p className="text-sm text-gray-500 mt-2">
+                      We currently operate Janakpurdham experiences only.
+                      Kathmandu journeys are coming soon.
+                    </p>
                     {errors.destination && (
                       <p className="text-red-500 text-sm mt-1">{errors.destination}</p>
                     )}

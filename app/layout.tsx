@@ -11,7 +11,7 @@ const jsonLd = {
   "@type": "TravelAgency",
   name: "Bhumija Holidays",
   description:
-    "Premium cultural travel agency specializing in authentic Nepal experiences, including Kathmandu heritage tours and Janakpurdham spiritual journeys.",
+    "Premium cultural travel agency specializing in authentic Janakpurdham spiritual journeys, with Kathmandu heritage tours coming soon.",
   url: "https://bhumijaholidays.com",
   logo: "https://bhumijaholidays.com/icon.svg",
   image: "https://bhumijaholidays.com/opengraph-image",
@@ -71,10 +71,10 @@ export const metadata: Metadata = {
     template: "%s | Bhumija Holidays",
   },
   description:
-    "Experience authentic Nepal with Bhumija Holidays. Discover the cultural treasures of Kathmandu and the sacred heritage of Janakpurdham with our premium, personalized travel packages.",
+    "Experience authentic Nepal with Bhumija Holidays. Discover the sacred heritage of Janakpurdham with premium personalized travel packages. Kathmandu journeys are coming soon.",
   keywords: [
     "Nepal travel",
-    "Kathmandu tours",
+    "Kathmandu tours coming soon",
     "Janakpurdham",
     "Mithila culture",
     "Nepal cultural tours",
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     siteName: "Bhumija Holidays",
     title: "Bhumija Holidays | Premium Cultural Travel in Nepal",
     description:
-      "Experience authentic Nepal with Bhumija Holidays. Discover the cultural treasures of Kathmandu and the sacred heritage of Janakpurdham.",
+      "Experience authentic Nepal with Bhumija Holidays. Discover the sacred heritage of Janakpurdham. Kathmandu journeys are coming soon.",
     images: [
       {
         url: "/og-image.jpg",
@@ -107,7 +107,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bhumija Holidays | Premium Cultural Travel in Nepal",
     description:
-      "Experience authentic Nepal with Bhumija Holidays. Discover the cultural treasures of Kathmandu and the sacred heritage of Janakpurdham.",
+      "Experience authentic Nepal with Bhumija Holidays. Discover the sacred heritage of Janakpurdham. Kathmandu journeys are coming soon.",
     images: ["/og-image.jpg"],
   },
   robots: {

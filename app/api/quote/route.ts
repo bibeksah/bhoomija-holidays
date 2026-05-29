@@ -33,6 +33,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (["kathmandu", "both", "undecided"].includes(data.destination)) {
+      const message =
+        "Kathmandu trips are coming soon. Please select Janakpurdham for now.";
+
+      return NextResponse.json(
+        {
+          success: false,
+          message,
+          error: message,
+        },
+        { status: 400 }
+      );
+    }
+
     // Log the request (for debugging)
     console.log("Quote request received:", {
       name: data.name,
@@ -143,7 +157,7 @@ Submitted on: ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kathmandu" 
               <div class="highlight">
                 <h3 style="color: #0B3D91; margin-top: 0;">In the meantime:</h3>
                 <ul style="color: #666;">
-                  <li>Browse our <a href="https://bhumijaholidays.com/destinations">destination guides</a> for Kathmandu and Janakpurdham</li>
+                  <li>Browse our <a href="https://bhumijaholidays.com/destinations/janakpurdham">Janakpurdham destination guide</a>. Kathmandu journeys are coming soon.</li>
                   <li>Read about <a href="https://bhumijaholidays.com/about">what makes Bhumija Holidays different</a></li>
                   <li>Check our <a href="https://bhumijaholidays.com/faq">FAQ</a> for common questions</li>
                 </ul>

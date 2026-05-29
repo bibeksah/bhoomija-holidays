@@ -15,7 +15,7 @@ import {
   ParallaxSection,
 } from "@/components/animations";
 import { siteContent, testimonials, faqs } from "@/data/content";
-import { getFeaturedPackages } from "@/data/packages";
+import { getFeaturedPackages, isPackageComingSoon } from "@/data/packages";
 
 export default function HomePage() {
   const { homepage } = siteContent;
@@ -179,11 +179,14 @@ export default function HomePage() {
           </FadeUp>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredPackages.map((pkg, index) => (
-              <FadeUp key={pkg.id} delay={index * 0.1}>
-                <HoverCard className="h-full">
-                  <Link href={`/packages/${pkg.slug}`} className="block h-full">
-                    <div className="card h-full flex flex-col">
+            {featuredPackages.map((pkg, index) => {
+              const isComingSoon = isPackageComingSoon(pkg);
+
+              return (
+                <FadeUp key={pkg.id} delay={index * 0.1}>
+                  <HoverCard className="h-full">
+                    <Link href={`/packages/${pkg.slug}`} className="block h-full">
+                      <div className="card h-full flex flex-col">
                       <div className="relative h-64">
                         <Image
                           src={pkg.gallery[0]}
@@ -192,7 +195,12 @@ export default function HomePage() {
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
-                        <div className="absolute top-4 right-4 z-10">
+                        <div className="absolute top-4 right-4 z-10 flex flex-col items-end gap-2">
+                          {isComingSoon && (
+                            <span className="px-3 py-1 bg-white text-[#0B3D91] text-sm font-semibold rounded-full shadow-sm">
+                              Coming Soon
+                            </span>
+                          )}
                           <span className="px-3 py-1 bg-[#FF8C00] text-white text-sm rounded-full">
                             {pkg.category}
                           </span>
@@ -207,9 +215,13 @@ export default function HomePage() {
                         </h3>
                         <p className="text-gray-600 mb-4 flex-grow">{pkg.summary}</p>
                         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                          <span className="text-sm text-gray-500">Starting from</span>
+                          <span className="text-sm text-gray-500">
+                            {isComingSoon ? "Availability" : "Starting from"}
+                          </span>
                           <span className="text-xl font-bold text-[#0B3D91]">
-                            {pkg.currency} {pkg.startingPrice.toLocaleString()}
+                            {isComingSoon
+                              ? "Coming soon"
+                              : `${pkg.currency} ${pkg.startingPrice.toLocaleString()}`}
                           </span>
                         </div>
                       </div>
@@ -217,7 +229,8 @@ export default function HomePage() {
                   </Link>
                 </HoverCard>
               </FadeUp>
-            ))}
+              );
+            })}
           </div>
 
           <FadeUp delay={0.4} className="text-center mt-12">
